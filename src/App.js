@@ -31,7 +31,6 @@ class App extends Component {
     this.setState({ boxes: boxes })
   }
 
-  clickBox (box, i) {}
   changeColor = e => {
     e.preventDefault()
     if (e.keyCode === 32) {
