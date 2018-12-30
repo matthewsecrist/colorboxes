@@ -1,29 +1,29 @@
 export const RED = {
-  color: 'red',
+  color: '#FF0000',
   clicked: false
 }
 
 export const ORANGE = {
-  color: 'orange',
+  color: '#FFa500',
   clicked: false
 }
 
 export const YELLOW = {
-  color: 'yellow',
+  color: '#FFFF00',
   clicked: false
 }
 
 export const GREEN = {
-  color: 'green',
+  color: '#00FF00',
   clicked: false
 }
 
 export const BLUE = {
-  color: 'blue',
+  color: '#0000FF',
   clicked: false
 }
 
 export const PURPLE = {
-  color: 'purple',
+  color: '#800080',
   clicked: false
 }

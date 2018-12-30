@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ColorBox from './ColorBox'
-import Container from './Container'
-import { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE } from './colors'
+import { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE } from './components/colors'
+import { AppContainer, AppTitle, Attribution, Container } from './components'
 
 class App extends Component {
   constructor (props) {
@@ -52,17 +52,22 @@ class App extends Component {
 
   render () {
     return (
-      <div className='App'>
+      <AppContainer>
+        <AppTitle>Color Boxes</AppTitle>
         <Container>
           {this.state.boxes.map((color, i) => (
             <ColorBox
               key={i}
               color={color.color}
+              clicked={color.clicked}
               handleClick={e => this.handleClick(i, e)}
             />
           ))}
         </Container>
-      </div>
+        <Attribution>
+          Created by <a href='http://www.matthewsecrist.net'>Matthew Secrist</a>
+        </Attribution>
+      </AppContainer>
     )
   }
 }
