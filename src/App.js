@@ -7,12 +7,20 @@ import { connect } from 'react-redux'
 
 import { AddToQueue, RemoveFromQueue } from 'styled-icons/material'
 
-import { AppContainer, AppTitle, Attribution, Container } from './components'
+import {
+  AppContainer,
+  AppTitle,
+  Attribution,
+  Container,
+  Button
+} from './components'
 
-import { changeColorsAction } from './actions/changeColors'
-import { clickColorAction } from './actions/clickColor'
-import { addBoxAction } from './actions/addBox'
-import { removeBoxAction } from './actions/removeBox'
+import {
+  changeColorsAction,
+  clickColorAction,
+  removeBoxAction,
+  addBoxAction
+} from './actions'
 
 class App extends Component {
   componentDidMount = () => {
@@ -23,48 +31,33 @@ class App extends Component {
     window.removeEventListener('keydown', e => this.changeColor(e))
   }
 
-  handleClick = (e, i) => {
-    const { boxes } = this.props
-    this.props.handleClick(boxes, i)
-  }
-
-  handleAdd = () => {
-    const { boxes } = this.props
-    if (boxes.length < 10) {
-      this.props.handleAddBox(boxes)
-    }
-  }
-
-  handleRemove = () => {
-    const { boxes } = this.props
-    if (boxes.length >= 2) {
-      this.props.handleRemoveBox(boxes)
-    }
-  }
-
   changeColor = e => {
     e.preventDefault()
     if (e.keyCode === 32) {
       const { boxes } = this.props
-      this.props.handleKeyDown(boxes)
+      this.props.changeColorsAction(boxes)
     }
   }
 
   render () {
+    const { boxes } = this.props
+
     return (
       <AppContainer>
         <AppTitle>Color Boxes</AppTitle>
         <div>
-          <AddToQueue
-            size='48'
-            onClick={this.handleAdd}
-            color={this.props.boxes.length < 10 ? '#ffffff' : '#000000'}
-          />
-          <RemoveFromQueue
-            size='48'
-            onClick={this.handleRemove}
-            color={this.props.boxes.length >= 2 ? '#ffffff' : '#000000'}
-          />
+          <Button
+            onClick={() => this.props.addBoxAction(boxes)}
+            disabled={this.props.boxes.length >= 10}
+          >
+            <AddToQueue size='48' />
+          </Button>
+          <Button
+            onClick={() => this.props.removeBoxAction(boxes)}
+            disabled={this.props.boxes.length <= 1}
+          >
+            <RemoveFromQueue size='48' />
+          </Button>
         </div>
         <p>
           Hit the spacebar to change colors. Click a color to stop it from
@@ -76,7 +69,7 @@ class App extends Component {
               key={i}
               color={color.color}
               clicked={color.clicked}
-              handleClick={e => this.handleClick(e, i)}
+              handleClick={() => this.props.clickColorAction(i)}
             />
           ))}
         </Container>
@@ -89,29 +82,19 @@ class App extends Component {
 }
 
 App.propTypes = {
-  handleClick: PropTypes.func,
-  handleKeyDown: PropTypes.func,
-  handleAddBox: PropTypes.func,
-  handleRemoveBox: PropTypes.func,
+  changeColorsAction: PropTypes.func,
+  clickColorAction: PropTypes.func,
+  addBoxAction: PropTypes.func,
+  removeBoxAction: PropTypes.func,
   boxes: PropTypes.array
 }
 
 const mapStateToProps = state => ({ boxes: state.boxes })
-const mapDispatchToProps = dispatch => {
-  return {
-    handleKeyDown: boxes => {
-      dispatch(changeColorsAction(boxes))
-    },
-    handleClick: (boxes, i) => {
-      dispatch(clickColorAction(boxes, i))
-    },
-    handleAddBox: boxes => {
-      dispatch(addBoxAction(boxes))
-    },
-    handleRemoveBox: boxes => {
-      dispatch(removeBoxAction(boxes))
-    }
-  }
+const mapDispatchToProps = {
+  changeColorsAction,
+  clickColorAction,
+  addBoxAction,
+  removeBoxAction
 }
 
 export default connect(

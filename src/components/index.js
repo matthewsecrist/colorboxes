@@ -39,3 +39,12 @@ export const ColorName = styled.h1`
   color: ${props => (props.clicked ? '#000000' : '#444444')};
   font-family: 'Roboto Mono', monospace;
 `
+
+export const Button = styled.button`
+  background: transparent;
+  border: none;
+  color: white;
+  &:disabled {
+    color: black;
+  }
+`
