@@ -29,7 +29,7 @@ export const Attribution = styled.h5`
 `
 export const Box = styled.div`
   height: 100%;
-  width: 16%;
+  flex-grow: 1;
   display: flex;
   justify-content: center;
 `
