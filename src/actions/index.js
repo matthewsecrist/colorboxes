@@ -7,8 +7,14 @@ export function clickColor (index) {
   return { type: CLICK_COLOR, index: index }
 }
 
-export const changeColors = () => ({ type: CHANGE_COLORS })
+export const changeColors = boxes => ({
+  type: CHANGE_COLORS,
+  colors: boxes.map(() => generateColor())
+})
 
 export const removeBox = () => ({ type: REMOVE_BOX })
 
-export const addBox = () => ({ type: ADD_BOX })
+export const addBox = () => ({ type: ADD_BOX, color: generateColor() })
+
+const generateColor = () =>
+  '#' + Math.floor(Math.random() * 16777215).toString(16)

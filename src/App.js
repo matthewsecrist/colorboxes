@@ -35,20 +35,18 @@ class App extends Component {
   }
 
   render () {
-    const { boxes } = this.props
-
     return (
       <AppContainer>
         <AppTitle>Color Boxes</AppTitle>
         <div>
           <Button
-            onClick={() => this.props.addBox(boxes)}
+            onClick={() => this.props.addBox()}
             disabled={this.props.boxes.length >= 10}
           >
             <AddToQueue size='48' />
           </Button>
           <Button
-            onClick={() => this.props.removeBox(boxes)}
+            onClick={() => this.props.removeBox()}
             disabled={this.props.boxes.length <= 1}
           >
             <RemoveFromQueue size='48' />

@@ -10,9 +10,9 @@ function rootReducer (state = initialState, action) {
     case CHANGE_COLORS:
       return {
         ...state,
-        boxes: state.boxes.map(box => {
+        boxes: state.boxes.map((box, i) => {
           if (!box.clicked) {
-            return { ...box, color: generateColor() }
+            return { ...box, color: action.colors[i] }
           }
           return box
         })
@@ -35,7 +35,7 @@ function rootReducer (state = initialState, action) {
           ...state.boxes,
           {
             clicked: false,
-            color: generateColor()
+            color: action.color
           }
         ]
       }
@@ -47,6 +47,3 @@ function rootReducer (state = initialState, action) {
 }
 
 export default rootReducer
-
-const generateColor = () =>
-  '#' + Math.floor(Math.random() * 16777215).toString(16)
