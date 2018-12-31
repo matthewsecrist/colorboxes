@@ -4,7 +4,7 @@ import { Box, ColorName } from '../components'
 
 const ColorBox = ({ color, clicked, handleClick }) => {
   return (
-    <Box style={{ background: color }} onClick={handleClick}>
+    <Box color={color} onClick={handleClick}>
       <ColorName clicked={clicked}>{color}</ColorName>
     </Box>
   )

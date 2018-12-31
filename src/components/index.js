@@ -32,6 +32,7 @@ export const Box = styled.div`
   flex-grow: 1;
   display: flex;
   justify-content: center;
+  background: ${props => props.color};
 `
 
 export const ColorName = styled.h1`
