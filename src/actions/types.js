@@ -1,0 +1,2 @@
+export const CHANGE_COLORS = 'CHANGE_COLORS'
+export const CLICK_COLOR = 'CLICK_COLOR'

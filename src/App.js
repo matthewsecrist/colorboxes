@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
+
+import PropTypes from 'prop-types'
+
 import ColorBox from './ColorBox'
-import { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE } from './components/colors'
+import { connect } from 'react-redux'
+
 import { AppContainer, AppTitle, Attribution, Container } from './components'
 
+import { changeColorsAction } from './actions/changeColors'
+import { clickColorAction } from './actions/clickColor'
+
 class App extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      boxes: [RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE]
-    }
-  }
-
   componentDidMount = () => {
     window.addEventListener('keydown', e => this.changeColor(e))
   }
@@ -20,34 +19,15 @@ class App extends Component {
     window.removeEventListener('keydown', e => this.changeColor(e))
   }
 
-  handleClick = (index, e) => {
-    let boxes = this.state.boxes.map((box, i) => {
-      if (i === index) {
-        return { ...box, clicked: !box.clicked }
-      } else {
-        return box
-      }
-    })
-    this.setState({ boxes: boxes })
+  handleClick = (e, i) => {
+    const { boxes } = this.props
+    this.props.handleClick(boxes, i)
   }
 
   changeColor = e => {
     e.preventDefault()
-    if (e.keyCode === 32) {
-      let boxes = this.state.boxes.map(box => this.generateColor(box))
-      this.setState({ boxes: boxes })
-    }
-  }
-
-  generateColor (box) {
-    if (!box.clicked) {
-      return {
-        ...box,
-        color: '#' + Math.floor(Math.random() * 16777215).toString(16)
-      }
-    } else {
-      return box
-    }
+    const { boxes } = this.props
+    this.props.handleKeyDown(boxes)
   }
 
   render () {
@@ -55,12 +35,12 @@ class App extends Component {
       <AppContainer>
         <AppTitle>Color Boxes</AppTitle>
         <Container>
-          {this.state.boxes.map((color, i) => (
+          {this.props.boxes.map((color, i) => (
             <ColorBox
               key={i}
               color={color.color}
               clicked={color.clicked}
-              handleClick={e => this.handleClick(i, e)}
+              handleClick={e => this.handleClick(e, i)}
             />
           ))}
         </Container>
@@ -72,4 +52,25 @@ class App extends Component {
   }
 }
 
-export default App
+App.propTypes = {
+  handleClick: PropTypes.func,
+  handleKeyDown: PropTypes.func,
+  boxes: PropTypes.array
+}
+
+const mapStateToProps = state => ({ boxes: state.boxes })
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    handleKeyDown: boxes => {
+      dispatch(changeColorsAction(boxes))
+    },
+    handleClick: (boxes, i) => {
+      dispatch(clickColorAction(boxes, i))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
