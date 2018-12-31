@@ -15,12 +15,7 @@ import {
   Button
 } from './components'
 
-import {
-  changeColorsAction,
-  clickColorAction,
-  removeBoxAction,
-  addBoxAction
-} from './actions'
+import { changeColors, clickColor, removeBox, addBox } from './actions'
 
 class App extends Component {
   componentDidMount = () => {
@@ -35,7 +30,7 @@ class App extends Component {
     e.preventDefault()
     if (e.keyCode === 32) {
       const { boxes } = this.props
-      this.props.changeColorsAction(boxes)
+      this.props.changeColors(boxes)
     }
   }
 
@@ -47,13 +42,13 @@ class App extends Component {
         <AppTitle>Color Boxes</AppTitle>
         <div>
           <Button
-            onClick={() => this.props.addBoxAction(boxes)}
+            onClick={() => this.props.addBox(boxes)}
             disabled={this.props.boxes.length >= 10}
           >
             <AddToQueue size='48' />
           </Button>
           <Button
-            onClick={() => this.props.removeBoxAction(boxes)}
+            onClick={() => this.props.removeBox(boxes)}
             disabled={this.props.boxes.length <= 1}
           >
             <RemoveFromQueue size='48' />
@@ -69,7 +64,7 @@ class App extends Component {
               key={i}
               color={color.color}
               clicked={color.clicked}
-              handleClick={() => this.props.clickColorAction(i)}
+              handleClick={() => this.props.clickColor(i)}
             />
           ))}
         </Container>
@@ -82,19 +77,19 @@ class App extends Component {
 }
 
 App.propTypes = {
-  changeColorsAction: PropTypes.func,
-  clickColorAction: PropTypes.func,
-  addBoxAction: PropTypes.func,
-  removeBoxAction: PropTypes.func,
+  changeColors: PropTypes.func,
+  clickColor: PropTypes.func,
+  addBox: PropTypes.func,
+  removeBox: PropTypes.func,
   boxes: PropTypes.array
 }
 
 const mapStateToProps = state => ({ boxes: state.boxes })
 const mapDispatchToProps = {
-  changeColorsAction,
-  clickColorAction,
-  addBoxAction,
-  removeBoxAction
+  changeColors,
+  clickColor,
+  addBox,
+  removeBox
 }
 
 export default connect(
