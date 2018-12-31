@@ -26,14 +26,20 @@ class App extends Component {
 
   changeColor = e => {
     e.preventDefault()
-    const { boxes } = this.props
-    this.props.handleKeyDown(boxes)
+    if (e.keyCode === 32) {
+      const { boxes } = this.props
+      this.props.handleKeyDown(boxes)
+    }
   }
 
   render () {
     return (
       <AppContainer>
         <AppTitle>Color Boxes</AppTitle>
+        <p>
+          Hit the spacebar to change colors. Click a color to stop it from
+          changing.
+        </p>
         <Container>
           {this.props.boxes.map((color, i) => (
             <ColorBox
@@ -59,7 +65,7 @@ App.propTypes = {
 }
 
 const mapStateToProps = state => ({ boxes: state.boxes })
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
     handleKeyDown: boxes => {
       dispatch(changeColorsAction(boxes))
