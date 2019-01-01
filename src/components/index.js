@@ -35,7 +35,7 @@ export const Box = styled.div`
   background: ${props => props.color};
 `
 
-export const ColorName = styled.h1`
+export const ColorName = styled.p`
   align-self: flex-end;
   color: ${props => (props.clicked ? '#000000' : '#444444')};
   font-family: 'Roboto Mono', monospace;
