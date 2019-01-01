@@ -3,6 +3,11 @@ export const CLICK_COLOR = 'CLICK_COLOR'
 export const ADD_BOX = 'ADD_BOX'
 export const REMOVE_BOX = 'REMOVE_BOX'
 export const ADJUST_COLORS = 'ADJUST_COLORS'
+export const RESET = 'RESET'
+
+export const reset = () => ({
+  type: RESET
+})
 
 export function clickColor (index) {
   return { type: CLICK_COLOR, index: index }
@@ -21,9 +26,9 @@ export const modifyColors = (boxes, addColors) => ({
 export const adjustColors = (colors, { red, green, blue }) => ({
   type: ADJUST_COLORS,
   colors: {
-    red: verifyColorsWithinRange(colors.red, red),
-    green: verifyColorsWithinRange(colors.green, green),
-    blue: verifyColorsWithinRange(colors.blue, blue)
+    red: colors.red + red,
+    green: colors.green + green,
+    blue: colors.blue + blue
   }
 })
 
@@ -31,6 +36,7 @@ export const removeBox = () => ({ type: REMOVE_BOX })
 
 export const addBox = () => ({ type: ADD_BOX, color: generateColor() })
 
+// HELPER ITEMS
 const generateColor = (redAdd, greenAdd, blueAdd) => {
   let [r, g, b] = [redAdd, greenAdd, blueAdd]
     .map(color => Math.floor(Math.random() * 256) + color)

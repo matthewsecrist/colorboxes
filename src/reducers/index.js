@@ -4,7 +4,8 @@ import {
   CLICK_COLOR,
   ADD_BOX,
   REMOVE_BOX,
-  ADJUST_COLORS
+  ADJUST_COLORS,
+  RESET
 } from '../actions'
 
 const initialState = {
@@ -14,6 +15,8 @@ const initialState = {
 
 function rootReducer (state = initialState, action) {
   switch (action.type) {
+    case RESET:
+      return initialState
     case CHANGE_COLORS:
       return {
         ...state,

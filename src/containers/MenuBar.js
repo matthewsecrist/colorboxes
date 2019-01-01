@@ -3,7 +3,13 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { removeBox, addBox, modifyColors, adjustColors } from '../actions'
+import {
+  removeBox,
+  addBox,
+  modifyColors,
+  adjustColors,
+  reset
+} from '../actions'
 
 const Bar = styled.div`
   display: flex;
@@ -39,6 +45,7 @@ class MenuBar extends Component {
         <p>
           Red: {addColors.red}, Green {addColors.green}, Blue: {addColors.blue}
         </p>
+        <Button onClick={() => this.props.reset()}>Reset</Button>
         <Button
           onClick={() => this.props.addBox()}
           disabled={this.props.boxes.length >= 10}
@@ -114,7 +121,8 @@ const mapDispatchToProps = {
   addBox,
   removeBox,
   modifyColors,
-  adjustColors
+  adjustColors,
+  reset
 }
 
 export default connect(
