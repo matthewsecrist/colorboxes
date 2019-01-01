@@ -109,7 +109,8 @@ MenuBar.propTypes = {
   boxes: PropTypes.array,
   addColors: PropTypes.object,
   modifyColors: PropTypes.func,
-  adjustColors: PropTypes.func
+  adjustColors: PropTypes.func,
+  reset: PropTypes.func
 }
 
 const mapStateToProps = state => ({
