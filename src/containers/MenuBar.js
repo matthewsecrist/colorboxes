@@ -42,9 +42,6 @@ class MenuBar extends Component {
     const { addColors } = this.props
     return (
       <Bar>
-        <p>
-          Red: {addColors.red}, Green {addColors.green}, Blue: {addColors.blue}
-        </p>
         <Button onClick={() => this.props.reset()}>Reset</Button>
         <Button
           onClick={() => this.props.addBox()}
