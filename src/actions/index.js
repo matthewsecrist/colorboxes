@@ -21,9 +21,9 @@ export const modifyColors = (boxes, addColors) => ({
 export const adjustColors = (colors, { red, green, blue }) => ({
   type: ADJUST_COLORS,
   colors: {
-    red: colors.red + red,
-    green: colors.green + green,
-    blue: colors.blue + blue
+    red: verifyColorsWithinRange(colors.red, red),
+    green: verifyColorsWithinRange(colors.green, green),
+    blue: verifyColorsWithinRange(colors.blue, blue)
   }
 })
 
@@ -41,7 +41,6 @@ const generateColor = (redAdd, greenAdd, blueAdd) => {
 }
 
 const regenerateColors = (box, addColors) => {
-  console.log(addColors)
   let { red, green, blue } = addColors
   let [r, g, b] = box.color
     .substring(4, box.color.length - 1)
@@ -49,13 +48,21 @@ const regenerateColors = (box, addColors) => {
     .split(',')
     .map(n => Number(n))
 
-  let newRed = r + red >= 255 ? 255 : r + red
-
-  let newGreen = g + green >= 255 ? 255 : g + green
-
-  let newBlue = b + blue >= 255 ? 255 : b + blue
-
+  let newRed = verifyColorsWithinRange(r, red)
+  let newGreen = verifyColorsWithinRange(g, green)
+  let newBlue = verifyColorsWithinRange(b, blue)
   let newColor = `rgb(${newRed}, ${newGreen}, ${newBlue})`
 
   return newColor
+}
+
+const verifyColorsWithinRange = (color, newColor) => {
+  console.log(`${color}, ${newColor}`)
+  if (color + newColor > 255) {
+    return 255
+  } else if (color + newColor <= 0) {
+    return 0
+  } else {
+    return color + newColor
+  }
 }
