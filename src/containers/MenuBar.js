@@ -39,7 +39,6 @@ class MenuBar extends Component {
   }
 
   render () {
-    const { addColors } = this.props
     return (
       <Bar>
         <Button onClick={() => this.props.reset()}>Reset</Button>

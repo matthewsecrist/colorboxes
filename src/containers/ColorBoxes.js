@@ -30,6 +30,7 @@ export class ColorBoxes extends Component {
         {this.props.boxes.map((color, i) => (
           <ColorBox
             key={i}
+            numBoxes={this.props.boxes.length}
             color={color.color}
             clicked={color.clicked}
             handleClick={() => this.props.clickColor(i)}

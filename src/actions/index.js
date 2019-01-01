@@ -37,7 +37,7 @@ export const removeBox = () => ({ type: REMOVE_BOX })
 export const addBox = () => ({ type: ADD_BOX, color: generateColor() })
 
 // HELPER ITEMS
-const generateColor = (redAdd, greenAdd, blueAdd) => {
+const generateColor = (redAdd = 0, greenAdd = 0, blueAdd = 0) => {
   let [r, g, b] = [redAdd, greenAdd, blueAdd]
     .map(color => Math.floor(Math.random() * 256) + color)
     .map(c => (c >= 255 ? 255 : c))

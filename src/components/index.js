@@ -29,10 +29,11 @@ export const Attribution = styled.h5`
 `
 export const Box = styled.div`
   height: 100%;
-  flex-grow: 1;
+  width: 100%;
   display: flex;
   justify-content: center;
   background: ${props => props.color};
+  transition: background 0.2s;
 `
 
 export const ColorName = styled.p`
