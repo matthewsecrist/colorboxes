@@ -1,5 +1,11 @@
 import { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE } from '../components/colors'
-import { CHANGE_COLORS, CLICK_COLOR, ADD_BOX, REMOVE_BOX } from '../actions'
+import {
+  CHANGE_COLORS,
+  CLICK_COLOR,
+  ADD_BOX,
+  REMOVE_BOX,
+  ADJUST_COLORS
+} from '../actions'
 
 const initialState = {
   boxes: [RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE],
@@ -42,6 +48,9 @@ function rootReducer (state = initialState, action) {
       }
     case REMOVE_BOX:
       return { ...state, boxes: state.boxes.slice(0, -1) }
+
+    case ADJUST_COLORS:
+      return { ...state, addColors: action.colors }
     default:
       return state
   }
