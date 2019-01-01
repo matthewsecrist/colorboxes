@@ -1,39 +1,14 @@
 import React, { Component } from 'react'
-
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import ColorBox from './ColorBox'
-import { connect } from 'react-redux'
+import { removeBox, addBox } from './actions'
 
 import { AddToQueue, RemoveFromQueue } from 'styled-icons/material'
-
-import {
-  AppContainer,
-  AppTitle,
-  Attribution,
-  Container,
-  Button
-} from './components'
-
-import { changeColors, clickColor, removeBox, addBox } from './actions'
+import { AppContainer, AppTitle, Attribution, Button } from './components'
+import ColorBoxes from './containers/ColorBoxes'
 
 class App extends Component {
-  componentDidMount = () => {
-    window.addEventListener('keydown', e => this.changeColor(e))
-  }
-
-  componentWillUnmount = () => {
-    window.removeEventListener('keydown', e => this.changeColor(e))
-  }
-
-  changeColor = e => {
-    e.preventDefault()
-    if (e.keyCode === 32) {
-      const { boxes } = this.props
-      this.props.changeColors(boxes)
-    }
-  }
-
   render () {
     return (
       <AppContainer>
@@ -56,16 +31,7 @@ class App extends Component {
           Hit the spacebar to change colors. Click a color to stop it from
           changing.
         </p>
-        <Container>
-          {this.props.boxes.map((color, i) => (
-            <ColorBox
-              key={i}
-              color={color.color}
-              clicked={color.clicked}
-              handleClick={() => this.props.clickColor(i)}
-            />
-          ))}
-        </Container>
+        <ColorBoxes />
         <Attribution>
           Created by <a href='http://www.matthewsecrist.net'>Matthew Secrist</a>
         </Attribution>
@@ -75,17 +41,15 @@ class App extends Component {
 }
 
 App.propTypes = {
-  changeColors: PropTypes.func,
-  clickColor: PropTypes.func,
   addBox: PropTypes.func,
   removeBox: PropTypes.func,
   boxes: PropTypes.array
 }
 
-const mapStateToProps = state => ({ boxes: state.boxes })
+const mapStateToProps = state => ({
+  boxes: state.boxes
+})
 const mapDispatchToProps = {
-  changeColors,
-  clickColor,
   addBox,
   removeBox
 }
