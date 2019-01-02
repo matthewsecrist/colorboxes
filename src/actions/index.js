@@ -4,10 +4,13 @@ export const ADD_BOX = 'ADD_BOX'
 export const REMOVE_BOX = 'REMOVE_BOX'
 export const ADJUST_COLORS = 'ADJUST_COLORS'
 export const RESET = 'RESET'
+export const TOGGLE_HEX = 'TOGGLE_HEX'
 
 export const reset = () => ({
   type: RESET
 })
+
+export const toggleHex = () => ({ type: TOGGLE_HEX })
 
 export function clickColor (index) {
   return { type: CLICK_COLOR, index: index }

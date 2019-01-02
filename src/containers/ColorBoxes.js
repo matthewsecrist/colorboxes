@@ -6,6 +6,7 @@ import ColorBox from '../components/ColorBox'
 
 import { Container } from '../components'
 import { clickColor, changeColors } from '../actions'
+import { rgbToHex } from '../helpers'
 
 export class ColorBoxes extends Component {
   componentDidMount = () => {
@@ -31,7 +32,7 @@ export class ColorBoxes extends Component {
           <ColorBox
             key={i}
             numBoxes={this.props.boxes.length}
-            color={color.color}
+            color={this.props.hex ? rgbToHex(color.color) : color.color}
             clicked={color.clicked}
             handleClick={() => this.props.clickColor(i)}
           />
@@ -45,12 +46,14 @@ ColorBoxes.propTypes = {
   changeColors: PropTypes.func,
   clickColor: PropTypes.func,
   boxes: PropTypes.array,
-  addColors: PropTypes.object
+  addColors: PropTypes.object,
+  hex: PropTypes.bool
 }
 
 const mapStateToProps = state => ({
   boxes: state.boxes,
-  addColors: state.addColors
+  addColors: state.addColors,
+  hex: state.hex
 })
 
 const mapDispatchToProps = {

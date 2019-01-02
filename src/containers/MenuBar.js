@@ -8,7 +8,8 @@ import {
   addBox,
   modifyColors,
   adjustColors,
-  reset
+  reset,
+  toggleHex
 } from '../actions'
 
 const Bar = styled.div`
@@ -41,6 +42,9 @@ class MenuBar extends Component {
   render () {
     return (
       <Bar>
+        <Button onClick={() => this.props.toggleHex()}>
+          {this.props.hex ? 'Use RGB' : 'Use Hex'}
+        </Button>
         <Button onClick={() => this.props.reset()}>Reset</Button>
         <Button
           onClick={() => this.props.addBox()}
@@ -103,15 +107,18 @@ MenuBar.propTypes = {
   addBox: PropTypes.func,
   removeBox: PropTypes.func,
   boxes: PropTypes.array,
+  hex: PropTypes.bool,
   addColors: PropTypes.object,
   modifyColors: PropTypes.func,
   adjustColors: PropTypes.func,
+  toggleHex: PropTypes.func,
   reset: PropTypes.func
 }
 
 const mapStateToProps = state => ({
   boxes: state.boxes,
-  addColors: state.addColors
+  addColors: state.addColors,
+  hex: state.hex
 })
 
 const mapDispatchToProps = {
@@ -119,6 +126,7 @@ const mapDispatchToProps = {
   removeBox,
   modifyColors,
   adjustColors,
+  toggleHex,
   reset
 }
 

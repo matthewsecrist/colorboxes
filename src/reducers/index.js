@@ -5,18 +5,22 @@ import {
   ADD_BOX,
   REMOVE_BOX,
   ADJUST_COLORS,
-  RESET
+  RESET,
+  TOGGLE_HEX
 } from '../actions'
 
 const initialState = {
   boxes: [RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE],
-  addColors: { red: 0, green: 0, blue: 0 }
+  addColors: { red: 0, green: 0, blue: 0 },
+  hex: false
 }
 
 function rootReducer (state = initialState, action) {
   switch (action.type) {
     case RESET:
       return initialState
+    case TOGGLE_HEX:
+      return { ...state, hex: !state.hex }
     case CHANGE_COLORS:
       return {
         ...state,
